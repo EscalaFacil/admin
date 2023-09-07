@@ -1,0 +1,36 @@
+{
+  "usuarios": {
+    "usuario": {
+      "nome": "name",
+      "email": "email",
+      "id_empresa": "id_empresa",
+      "id_permissao": "id"
+    }
+  },
+  "empresas": {
+    "empresa": {
+      "nome": "company_name",
+      "slug": "company_name_slug"
+    }
+  },
+  "tarefas": {
+    "{id_tarefa}": {
+      "nome": "Tarefa 1",
+      "descricao": "description",
+      "data_inicial": "date",
+      "data_final": "date",
+      "usuarios": [
+        "user_uid"
+      ],
+      "id_empresa": 1
+    }
+  },
+  "permissoes": {
+    "{id_permissao}": {
+      "nome": "Permissão 1",
+      "descricao": "Descrição da permissão 1",
+      "nivel": 1
+    }
+  },
+  "logs": []
+}
