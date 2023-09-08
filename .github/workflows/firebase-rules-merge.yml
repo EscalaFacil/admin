@@ -6,9 +6,17 @@ name: Run tests and deploy Firestore Rules
 jobs:
   test:
     runs-on: ubuntu-latest
+    outputs:
+      rules: ${{ steps.filter.outputs.rules }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            rules:
+              - 'firebase.rules'
       - name: Cache firebase emulators
         uses: actions/cache@v3
         with:
@@ -25,6 +33,7 @@ jobs:
         run: npm run test
   deploy:
     needs: test
+    if: ${{ needs.test.outputs.rules == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
