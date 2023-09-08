@@ -22,8 +22,6 @@ jobs:
         run: npm ci
       - name: Setup Firebase CLI
         uses: pocket-apps/action-setup-firebase@v2
-        with:
-          firebase-token: '${{ secrets.FIREBASE_TOKEN }}'
       - name: Run Tests
         run: npm run test
         env:
