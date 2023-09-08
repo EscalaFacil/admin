@@ -1,3 +1,5 @@
+[![CI & CD](https://github.com/EscalaFacil/admin/actions/workflows/firebase-rules-merge.yml/badge.svg)](https://github.com/EscalaFacil/admin/actions/workflows/firebase-rules-merge.yml)
+
 ## Requirements
 - [Firebase CLI](https://firebase.google.com/docs/cli)
 
