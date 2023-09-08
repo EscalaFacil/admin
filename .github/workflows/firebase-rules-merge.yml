@@ -17,7 +17,7 @@ jobs:
       - name: Test
         uses: w9jds/firebase-action@master
         with:
-          args: firebase emulators:exec jest
+          args: emulators:exec jest
         env:
           GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421 }}'
           PROJECT_ID: escalafacil-3a421
