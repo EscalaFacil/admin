@@ -37,4 +37,4 @@ jobs:
         with:
           args: deploy --only firestore
         env:
-          GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421 }}'
+          GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421_BASE64 }}'
