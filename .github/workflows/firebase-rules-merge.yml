@@ -21,11 +21,11 @@ jobs:
       - name: Install Dependencies
         run: npm ci
       - name: Setup Firebase CLI
-        uses: pocket-apps/action-setup-firebase@v2
+        uses: w9jds/setup-firebase@v1.0.0
+        with:
+          gcp_sa_key: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421 }}'
       - name: Run Tests
         run: npm run test
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421 }}'
   deploy:
     needs: test
     runs-on: ubuntu-latest
