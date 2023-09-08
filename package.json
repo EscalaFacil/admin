@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest --detectOpenHandles",
+    "test": "firebase emulators:exec jest",
     "deploy": "firebase deploy --only firestore",
     "emulator": "firebase emulators:start --only firestore"
   },
