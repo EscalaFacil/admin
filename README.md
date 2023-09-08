@@ -1,4 +1,4 @@
-[![CI & CD](https://github.com/EscalaFacil/admin/actions/workflows/firebase-rules-merge.yml/badge.svg)](https://github.com/EscalaFacil/admin/actions/workflows/firebase-rules-merge.yml)
+[![Run tests and deploy Firestore Rules](https://github.com/EscalaFacil/admin/actions/workflows/workflow-merge.yml/badge.svg)](https://github.com/EscalaFacil/admin/actions/workflows/workflow-merge.yml)
 
 ## Requirements
 - [Firebase CLI](https://firebase.google.com/docs/cli)
