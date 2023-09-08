@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "firebase emulators:exec jest",
+    "test": "firebase emulators:exec 'jest --forceExit'",
     "deploy": "firebase deploy --only firestore",
     "emulator": "firebase emulators:start --only firestore"
   },

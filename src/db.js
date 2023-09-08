@@ -1,3 +1,4 @@
+import admin from "firebase-admin";
 import { initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import { fakerPT_BR as faker } from '@faker-js/faker';

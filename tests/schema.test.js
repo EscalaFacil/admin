@@ -4,22 +4,32 @@ import schemas from "../schemas.json";
 import { clearObject } from "../src/operations";
 
 
-test('should validate user schema', async () => {
+let vars;
 
-  const { superUser, normalUserUUID } = await testsVars();
+
+beforeEach(async () => {
+  vars = await testsVars();
+});
+
+
+test('should validate user schema', async () => {
+  expect.assertions(1);
+
+  const { superUser, normalUserUUID } = vars;
 
   const db = superUser.firestore();
 
-  const user = await getDoc(doc(db, `usuarios/${normalUserUUID}`))
+  const user = await getDoc(doc(db, `usuarios/${normalUserUUID}`));
 
   const userData = user.data();
 
-  expect(clearObject(userData)).toEqual(clearObject(schemas.usuarios.usuario))
+  expect(clearObject(userData)).toEqual(clearObject(schemas.usuarios.usuario));
 });
 
-test('should validate company schema', async () => {
 
-  const { superUser, userCompanyUUID } = await testsVars();
+it('should validate company schema', async () => {
+
+  const { superUser, userCompanyUUID } = vars;
 
   const db = superUser.firestore();
 
