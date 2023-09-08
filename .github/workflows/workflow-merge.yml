@@ -18,7 +18,7 @@ jobs:
             rules:
               - 'src/rules/**'
 
-  test_rules:
+  test:rules:
     needs: changes
     if: ${{ needs.changes.outputs.rules == 'true' }}
     runs-on: ubuntu-latest
@@ -42,8 +42,8 @@ jobs:
       - name: 'Rules: Run Tests'
         run: npm run test:rules
 
-  deploy_rules:
-    needs: test_rules
+  deploy:rules:
+    needs: test:rules
     runs-on: ubuntu-latest
     steps:
       - name: 'Rules: Checkout Repo'
