@@ -7,11 +7,25 @@ name: Deploy to Firebase Hosting on merge
     branches:
       - main
 jobs:
-  tests_and_deploy:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          FIREBASE_TOKEN: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421 }}'
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        run: npm install
+      - name: Test
+        uses: w9jds/firebase-action@master
+        env:
+          GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421 }}'
           PROJECT_ID: escalafacil-3a421
-      - run: npm i && npm run test && npm run deploy
+        run: npm run test
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Firestore Rules
+        uses: w9jds/firebase-action@master
+        env:
+          GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421 }}'
+        run: npm run deploy
