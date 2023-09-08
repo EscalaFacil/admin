@@ -1,4 +1,4 @@
-name: Run tests and deploy Firestore Rules 
+name: Run tests and deploy Firebase Tools 
 'on':
   push:
     branches:
