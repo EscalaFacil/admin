@@ -20,10 +20,14 @@ jobs:
           firebase-token: '${{ secrets.FIREBASE_TOKEN }}'
       - name: Run Tests
         run: npm run test
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421 }}'
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
       - name: Deploy Firestore Rules
         uses: w9jds/firebase-action@master
         with:
