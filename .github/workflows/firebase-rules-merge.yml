@@ -4,7 +4,7 @@ name: Run tests and deploy Firestore Rules
     branches:
       - main
 jobs:
-  test:
+  changes:
     runs-on: ubuntu-latest
     outputs:
       rules: ${{ steps.filter.outputs.rules }}
@@ -17,28 +17,39 @@ jobs:
           filters: |
             rules:
               - 'firebase.rules'
-      - name: Cache firebase emulators
+              - 'firestore.indexes.json'
+
+  test_rules:
+    needs: changes
+    if: ${{ needs.changes.outputs.rules == 'true' }}
+    runs-on: ubuntu-latest
+    outputs:
+      rules: ${{ steps.filter.outputs.rules }}
+    steps:
+      - name: 'Rules: Checkout Repo'
+        uses: actions/checkout@master
+      - name: 'Rules: Cache firebase emulators'
         uses: actions/cache@v3
         with:
           path: ~/.cache/firebase/emulators
           key: ${{ runner.os }}-firebase-emulators-${{ github.sha }}    
           restore-keys: ${{ runner.os }}-firebase-emulators-
-      - name: Install Dependencies
+      - name: 'Rules: Install Dependencies'
         run: npm ci
       - name: Setup Firebase CLI
         uses: w9jds/setup-firebase@v1.0.0
         with:
           gcp_sa_key: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421 }}'
-      - name: Run Tests
+      - name: 'Rules: Run Tests'
         run: npm run test
-  deploy:
-    needs: test
-    if: ${{ needs.test.outputs.rules == 'true' }}
+
+  deploy_rules:
+    needs: test_rules
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
+      - name: 'Rules: Checkout Repo'
         uses: actions/checkout@master
-      - name: Deploy Firestore Rules
+      - name: 'Rules: Deploy Firestore Rules'
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only firestore
