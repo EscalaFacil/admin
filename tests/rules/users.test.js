@@ -1,5 +1,5 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { testsVars } from "../src/tests";
+import { testsVars } from "../../src/rules/tests";
 
 
 // User gets its own data

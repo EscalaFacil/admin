@@ -9,7 +9,7 @@ export async function testsVars() {
   let testEnv = await initializeTestEnvironment({
     projectId: "escalafacil-3a421",
     firestore: {
-      rules: fs.readFileSync("firestore.rules", "utf8"),
+      rules: fs.readFileSync("src/rules/firestore.rules", "utf8"),
       host: "127.0.0.1",
       port: 8080,
     },

@@ -16,8 +16,7 @@ jobs:
         with:
           filters: |
             rules:
-              - 'firebase.rules'
-              - 'firestore.indexes.json'
+              - 'src/rules/**'
 
   test_rules:
     needs: changes
@@ -41,7 +40,7 @@ jobs:
         with:
           gcp_sa_key: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421 }}'
       - name: 'Rules: Run Tests'
-        run: npm run test
+        run: npm run test:rules
 
   deploy_rules:
     needs: test_rules
