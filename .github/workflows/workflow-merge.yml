@@ -18,8 +18,10 @@ jobs:
           filters: |
             rules:
               - 'rules/**'
+              - '.github/workflows/**'
             functions:
               - 'functions/**'
+              - '.github/workflows/**'
 
   test-rules:
     needs: changes
