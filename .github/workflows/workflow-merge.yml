@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       rules: ${{ steps.filter.outputs.rules }}
+      functions: ${{ steps.filter.outputs.functions }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
@@ -16,7 +17,9 @@ jobs:
         with:
           filters: |
             rules:
-              - 'src/rules/**'
+              - 'rules/**'
+            functions:
+              - 'functions/**'
 
   test-rules:
     needs: changes
@@ -50,5 +53,40 @@ jobs:
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only firestore
+        env:
+          GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421_BASE64 }}'
+
+  test-functions:
+    needs: changes
+    if: ${{ needs.changes.outputs.functions == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Cache firebase emulators
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/firebase/emulators
+          key: ${{ runner.os }}-firebase-emulators-${{ github.sha }}    
+          restore-keys: ${{ runner.os }}-firebase-emulators-
+      - name: Install Dependencies
+        run: npm ci
+      - name: Setup Firebase CLI
+        uses: w9jds/setup-firebase@v1.0.0
+        with:
+          gcp_sa_key: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421 }}'
+      - name: Run Tests
+        run: npm run test:functions
+
+  deploy-functions:
+    needs: test-functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Deploy Firebase Functions
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
         env:
           GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESCALAFACIL_3A421_BASE64 }}'

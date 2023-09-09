@@ -1,7 +1,7 @@
 import fs from "fs";
 import { initializeTestEnvironment } from "@firebase/rules-unit-testing"
 import { fakerPT_BR as faker } from '@faker-js/faker';
-import { seedDB } from "./db.js";
+import { seedDB } from "src/db.js";
 
 
 export async function testsVars() {
@@ -9,7 +9,7 @@ export async function testsVars() {
   let testEnv = await initializeTestEnvironment({
     projectId: "escalafacil-3a421",
     firestore: {
-      rules: fs.readFileSync("src/rules/firestore.rules", "utf8"),
+      rules: fs.readFileSync("firestore.rules", "utf8"),
       host: "127.0.0.1",
       port: 8080,
     },
