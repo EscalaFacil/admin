@@ -14,7 +14,7 @@
     }
   },
   "tarefas": {
-    "{id_tarefa}": {
+    "tarefa": {
       "nome": "Tarefa 1",
       "descricao": "description",
       "data_inicial": "date",

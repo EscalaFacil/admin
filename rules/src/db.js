@@ -28,6 +28,13 @@ companiesUUID.push(faker.string.uuid());
 faker.seed(4);
 companiesUUID.push(faker.string.uuid());
 
+const tasksUUID = [];
+
+faker.seed(5);
+tasksUUID.push(faker.string.uuid());
+tasksUUID.push(faker.string.uuid());
+
+
 // Seed Users
 async function seedUsers() {
   try {
@@ -77,24 +84,18 @@ async function seedPermissions() {
 // Seed Tasks
 async function seedTasks() {
   try {
-    await db.collection('tarefas').doc(faker.string.uuid()).set({
-      "nome": "Tarefa 1",
-      "descricao": faker.lorem.sentence(),
-      "data_inicial": faker.date.recent(),
-      "data_final": faker.date.future(),
-      "usuarios": [
-        usersUUID[1],
-      ],
-      "id_empresa": companiesUUID[0],
-    })
-    await db.collection('tarefas').doc(faker.string.uuid()).set({
-      "nome": "Tarefa 1",
-      "descricao": faker.lorem.sentence(),
-      "data_inicial": faker.date.recent(),
-      "data_final": faker.date.future(),
-      "usuarios": [],
-      "id_empresa": companiesUUID[1],
-    })
+    for (const i of [0, 1]) {
+      await db.collection('tarefas').doc(tasksUUID[i]).set({
+        "nome": "Tarefa 1",
+        "descricao": faker.lorem.sentence(),
+        "data_inicial": faker.date.recent(),
+        "data_final": faker.date.future(),
+        "usuarios": [
+          usersUUID[1],
+        ],
+        "id_empresa": companiesUUID[i],
+      })
+    }
   } catch (error) {
     console.error(error, 'tasks seed failed');
   }
@@ -108,6 +109,5 @@ export async function seedDB() {
     seedTasks(),
   ]);
 }
-
 // #endregion
 
