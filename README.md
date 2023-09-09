@@ -1,6 +1,10 @@
 [![Run tests and deploy Firestore Rules](https://github.com/EscalaFacil/admin/actions/workflows/workflow-merge.yml/badge.svg)](https://github.com/EscalaFacil/admin/actions/workflows/workflow-merge.yml)
 
 
+## About
+This repository contains the Firebase Functions and Firestore Rules for the Escala Fácil project.
+
+
 ## Requirements
 - [Firebase CLI](https://firebase.google.com/docs/cli)
 - [Java 8 or above](https://www.java.com/)
