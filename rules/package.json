@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "firebase emulators:start --only firestore",
     "deploy": "firebase deploy --only firestore:rules",
-    "test": "firebase emulators:exec --only firestore 'jest --forceExit'"
+    "test": "firebase emulators:exec --only firestore 'jest --forceExit --detectOpenHandles --silent'"
   },
   "dependencies": {
     "@faker-js/faker": "^8.0.2",

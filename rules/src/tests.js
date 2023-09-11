@@ -24,23 +24,32 @@ export async function testsVars() {
   const adminUserUUID = faker.string.uuid();
   const adminUser = testEnv.authenticatedContext(adminUserUUID, {});
 
-  faker.seed(2);
   const normalUserUUID = faker.string.uuid();
   const normalUser = testEnv.authenticatedContext(normalUserUUID, {});
 
   const superUser = testEnv.authenticatedContext("superUser", {});
 
-  faker.seed(3);
+  faker.seed(2);
   const userCompanyUUID = faker.string.uuid();
-
-  faker.seed(4);
   const otherCompanyUUID = faker.string.uuid();
 
-  faker.seed(5)
+  faker.seed(3)
   const tasksUUID = [];
   tasksUUID.push(faker.string.uuid());
   tasksUUID.push(faker.string.uuid());
 
+  const permissionsUUID = [0, 1];
 
-  return { superUser, adminUser, adminUserUUID, normalUser, normalUserUUID, userCompanyUUID, otherCompanyUUID, tasksUUID };
+
+  return {
+    superUser,
+    adminUser,
+    adminUserUUID,
+    normalUser,
+    normalUserUUID,
+    userCompanyUUID,
+    otherCompanyUUID,
+    tasksUUID,
+    permissionsUUID
+  };
 }

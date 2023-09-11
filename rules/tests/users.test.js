@@ -1,32 +1,137 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import schemas from "schemas.json";
+import { clearObject } from "src/operations";
 import { testsVars } from "src/tests";
 
 
-// User gets its own data
-// const teste = await getDoc(doc(normalUser.firestore(), `${firestorePaths.users}${normalUser.authToken.user_id}`))
-// console.log(teste.data())
+/**
+ * @type {{
+    superUser: RulesTestContext;
+    adminUser: RulesTestContext;
+    adminUserUUID: string;
+    normalUser: RulesTestContext;
+    normalUserUUID: string;
+    userCompanyUUID: string;
+    otherCompanyUUID: string;
+    tasksUUID: string[];
+    permissionsUUID: number[];
+}}
+*/
+let vars;
 
 
-
-function sum(a, b) {
-  return a + b;
-}
-
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+beforeEach(async () => {
+  vars = await testsVars();
 });
 
 
-// User writes its own data
+describe('Normal user', () => {
+  test('should get its own data', async () => {
+    expect.assertions(1);
 
-// User can't read other users data
+    const { normalUser } = vars;
 
-// User can't write other users data
+    const db = normalUser.firestore();
+    const user = await getDoc(doc(db, `usuarios/${normalUser.authToken.user_id}`));
+    const userData = user.data();
 
-// User gets its own company data
+    expect(clearObject(userData)).toEqual(clearObject(schemas.usuarios.usuario));
+  });
 
-// Usert writes its own company data
 
-// User can't read other companies data
+  test('should not write its own data', async () => {
+    expect.assertions(1);
 
-// User can't write other companies data
+    const { normalUser } = vars;
+
+    const db = normalUser.firestore();
+    try {
+      await setDoc(doc(db, `usuarios/${normalUser.authToken.user_id}`), {});
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+
+
+  test('should not read other user data', async () => {
+    expect.assertions(1);
+
+    const { normalUser, adminUser } = vars;
+
+    const db = normalUser.firestore();
+    try {
+      await getDoc(doc(db, `usuarios/${adminUser.authToken.user_id}`));
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+
+  test('should not write other user data', async () => {
+    expect.assertions(1);
+
+    const { normalUser, adminUser } = vars;
+
+    const db = normalUser.firestore();
+    try {
+      await setDoc(doc(db, `usuarios/${adminUser.authToken.user_id}`), {});
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+})
+
+
+describe('Admin user', () => {
+  test('should get its own data', async () => {
+    expect.assertions(1);
+
+    const { adminUser } = vars;
+
+    const db = adminUser.firestore();
+    const user = await getDoc(doc(db, `usuarios/${adminUser.authToken.user_id}`));
+    const userData = user.data();
+
+    expect(clearObject(userData)).toEqual(clearObject(schemas.usuarios.usuario));
+  });
+
+
+  test('should not write its own data', async () => {
+    expect.assertions(1);
+
+    const { adminUser } = vars;
+
+    const db = adminUser.firestore();
+    try {
+      await setDoc(doc(db, `usuarios/${adminUser.authToken.user_id}`), {});
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+
+
+  test('should not read other user data', async () => {
+    expect.assertions(1);
+
+    const { adminUser, normalUser } = vars;
+
+    const db = adminUser.firestore();
+    try {
+      await getDoc(doc(db, `usuarios/${normalUser.authToken.user_id}`));
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+
+  test('should not write other user data', async () => {
+    expect.assertions(1);
+
+    const { adminUser, normalUser } = vars;
+
+    const db = adminUser.firestore();
+    try {
+      await setDoc(doc(db, `usuarios/${normalUser.authToken.user_id}`), {});
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+})

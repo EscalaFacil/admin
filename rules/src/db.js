@@ -16,21 +16,17 @@ const usersUUID = [];
 
 faker.seed(1);
 usersUUID.push(faker.string.uuid());
-
-faker.seed(2);
 usersUUID.push(faker.string.uuid());
 
 const companiesUUID = [];
 
-faker.seed(3);
+faker.seed(2);
 companiesUUID.push(faker.string.uuid());
-
-faker.seed(4);
 companiesUUID.push(faker.string.uuid());
 
 const tasksUUID = [];
 
-faker.seed(5);
+faker.seed(3);
 tasksUUID.push(faker.string.uuid());
 tasksUUID.push(faker.string.uuid());
 
