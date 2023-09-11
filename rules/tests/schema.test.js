@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { testsVars } from "src/tests";
 import schemas from "schemas.json";
 import { clearObject } from "src/operations";

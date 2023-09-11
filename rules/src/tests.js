@@ -41,6 +41,18 @@ export async function testsVars() {
   tasksUUID.push(faker.string.uuid());
   tasksUUID.push(faker.string.uuid());
 
+  const permissionsUUID = [0, 1];
 
-  return { superUser, adminUser, adminUserUUID, normalUser, normalUserUUID, userCompanyUUID, otherCompanyUUID, tasksUUID };
+
+  return {
+    superUser,
+    adminUser,
+    adminUserUUID,
+    normalUser,
+    normalUserUUID,
+    userCompanyUUID,
+    otherCompanyUUID,
+    tasksUUID,
+    permissionsUUID
+  };
 }

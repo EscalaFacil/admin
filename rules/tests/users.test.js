@@ -1,32 +1,25 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { testsVars } from "src/tests";
+import schemas from "schemas.json";
+import { clearObject } from "src/operations";
 
 
-// User gets its own data
-// const teste = await getDoc(doc(normalUser.firestore(), `${firestorePaths.users}${normalUser.authToken.user_id}`))
-// console.log(teste.data())
+let vars;
 
 
-
-function sum(a, b) {
-  return a + b;
-}
-
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+beforeEach(async () => {
+  vars = await testsVars();
 });
 
 
-// User writes its own data
+test('user should get its own data', async () => {
+  expect.assertions(1);
 
-// User can't read other users data
+  const { normalUser } = vars;
 
-// User can't write other users data
+  const db = normalUser.firestore();
+  const user = await getDoc(doc(db, `usuarios/${normalUser.authToken.user_id}`));
+  const userData = user.data();
 
-// User gets its own company data
-
-// Usert writes its own company data
-
-// User can't read other companies data
-
-// User can't write other companies data
+  expect(clearObject(userData)).toEqual(clearObject(schemas.usuarios.usuario));
+});
