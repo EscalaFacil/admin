@@ -31,6 +31,7 @@ npm install
 
 
 # Firebase Functions
+You can create or edit the project functions in the `functions/src` folder.
 
 ## Testing
 Run the following command:
@@ -49,15 +50,18 @@ npm run deploy:functions
 
 
 # Firestore Rules
+You can edit the project rules in the `rules/firestore.rules` file.
 
 ## Testing
 Run the following command:
 ```bash
 npm run test:rules
 ```
+![Testing Firestore Rules locally](assets/testing_rules.png)
 
 ## Deploy
 The deployment is done automatically by GitHub Actions when a new commit is pushed to the `main` branch.
+![Alt text](assets/ci_workflow.png)
 
 ## Deploying Manually
 It's not advised to deploy manually, but if you need to, run the following command:
