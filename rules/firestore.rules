@@ -1,17 +1,42 @@
 rules_version = '2';
+// Docs: https://firebase.google.com/docs/firestore/security/overview
 service cloud.firestore {
   match /databases/{database}/documents {
-    
+
     match /{document=**} {
       allow read, write: if request.auth.uid == 'superUser';
     }
 
-    match /usuarios/{userId} {
-      allow read: if request.auth != null && request.auth.uid == userId;
-      allow create: if request.auth != null;
+    function signedIn() {
+      return request.auth != null;
     }
+
+    function normalUser() {
+      return signedIn() && get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.id_permissao == 1;
+    }
+
+    function adminUser() {
+      return signedIn() && get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.id_permissao == 0;
+    }
+
+    function isUserFromCompany(companyId) {
+      return signedIn() && get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.id_empresa == companyId;
+    }
+
+    match /usuarios/{userId} {
+      allow read: if signedIn() && request.auth.uid == userId;
+    }
+
     match /empresas/{companyId} {
-    	allow read: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.companyId == companyId;
+      allow read: if isUserFromCompany(companyId);
+    }
+
+    match /tarefas/{taskId} {
+      allow read: if isUserFromCompany(resource.data.id_empresa);
+    }
+
+    match /permissoes/{permissionId} {
+      allow read: if signedIn()
     }
   }
 }
