@@ -49,3 +49,16 @@ it('shoud validate tasks schema', async () => {
 
   expect(clearObject(tasksData)).toEqual(clearObject(schemas.tarefas.tarefa))
 });
+
+
+it('should validate permissions schema', async () => {
+  expect.assertions(1);
+
+  const { superUser, permissionsUUID } = vars;
+
+  const db = superUser.firestore();
+  const permissions = await getDoc(doc(db, `permissoes/${permissionsUUID[0]}`));
+  const permissionsData = permissions.data();
+
+  expect(clearObject(permissionsData)).toEqual(clearObject(schemas.permissoes.permissao))
+});

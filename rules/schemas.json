@@ -26,10 +26,9 @@
     }
   },
   "permissoes": {
-    "{id_permissao}": {
+    "permissao": {
       "nome": "Permissão 1",
-      "descricao": "Descrição da permissão 1",
-      "nivel": 1
+      "descricao": "Descrição da permissão 1"
     }
   },
   "logs": []
