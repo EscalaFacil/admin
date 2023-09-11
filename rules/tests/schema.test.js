@@ -1,9 +1,22 @@
 import { doc, getDoc } from "firebase/firestore";
-import { testsVars } from "src/tests";
 import schemas from "schemas.json";
 import { clearObject } from "src/operations";
+import { testsVars } from "src/tests";
 
 
+/**
+ * @type {{
+    superUser: RulesTestContext;
+    adminUser: RulesTestContext;
+    adminUserUUID: string;
+    normalUser: RulesTestContext;
+    normalUserUUID: string;
+    userCompanyUUID: string;
+    otherCompanyUUID: string;
+    tasksUUID: string[];
+    permissionsUUID: number[];
+}}
+*/
 let vars;
 
 

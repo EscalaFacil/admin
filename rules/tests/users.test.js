@@ -1,7 +1,7 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { testsVars } from "src/tests";
 import schemas from "schemas.json";
 import { clearObject } from "src/operations";
+import { testsVars } from "src/tests";
 
 
 /**
